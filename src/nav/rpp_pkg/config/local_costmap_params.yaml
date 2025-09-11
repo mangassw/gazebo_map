@@ -1,0 +1,10 @@
+local_costmap:
+  global_frame: odom                    #地图坐标系（里程计输出的tf)
+  robot_base_frame: base_footprint      #机器人底盘坐标系
+  static_map: false                     #不使用保存地图
+  rolling_window: true                  #局部代价地图跟随机器人一起移动
+  width:  10.0                            #局部代价地图尺寸
+  height: 10.0
+  update_frequency: 10.0                #更新局部代价地图的频率（一般为激光雷达扫描频率）
+  publish_frequency: 10.0
+  transform_tolerance: 1.0

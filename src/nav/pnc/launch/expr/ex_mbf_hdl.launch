@@ -1,0 +1,42 @@
+<launch>
+    <!-- Arguments -->
+    <arg name="cmd_vel_topic" default="/cmd_vel" />
+    <arg name="odom_topic" default="odom" />
+    <arg name="localization_rviz" default="false"/>
+    <arg name="hdl_rviz" default="false"/>
+    <arg name="pnc_rviz" default="true"/>
+
+    <!-- amcl -->
+    <!-- <include file="$(find xbai_slam)/launch/localization.launch">
+        <arg name="rviz" value="$(arg localization_rviz)" />
+    </include> -->
+
+    <!-- hdl_localization -->
+    <include file="$(find xbai_slam)/launch/expr/ex_3dmap_hdl_localization.launch">
+        <arg name="rviz_loca" value="$(arg localization_rviz)" />
+        <arg name="rviz_hdl" value="$(arg hdl_rviz)" />
+    </include>
+
+    <!-- move_base_flex -->
+    <node pkg="mbf_costmap_nav" type="mbf_costmap_nav" respawn="false" name="move_base_flex" output="screen">
+        <rosparam file="$(find xbai_pnc)/param/hdl_loca_bw/costmap_params.yaml" command="load" />
+        <rosparam file="$(find xbai_pnc)/param/hdl_loca_bw/move_base_flex_params.yaml" command="load" />
+        <rosparam file="$(find xbai_pnc)/param/hdl_loca_bw/recovery_behavior_params.yaml" command="load" />
+        <rosparam file="$(find xbai_pnc)/param/hdl_loca_bw/teb_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find xbai_pnc)/param/hdl_loca_bw/costmap_converter_params.yaml" command="load" />
+        <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+        <remap from="odom" to="$(arg odom_topic)"/>
+    </node>
+
+    <!-- action goal bridge -->
+    <node pkg="xbai_pnc" type="xbai_mbf_bridge" respawn="false" name="xbai_mbf_bridge" />
+
+    <!-- state machine -->
+    <param name="/root_path" value="$(find xbai_slam)" type="string"/>
+    <node pkg="xbai_pnc" type="xbai_state_machine" respawn="false" name="xbai_state_machine" output="screen"/>
+
+    <!-- rviz -->
+    <group if="$(arg pnc_rviz)">
+        <node pkg="rviz" type="rviz" name="rviz" args="-d $(find xbai_pnc)/rviz/mbf.rviz" />
+    </group>
+</launch>

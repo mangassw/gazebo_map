@@ -1,0 +1,56 @@
+ekf_filter_node:
+  ros__parameters:
+    frequency: 30.0
+    sensor_timeout: 0.1
+    two_d_mode: false
+    transform_time_offset: 0.0
+    transform_timeout: 0.0
+    print_diagnostics: true
+    debug: false
+
+    map_frame: map
+    odom_frame: odom
+    base_link_frame: base_link
+    world_frame: map
+
+    # 参考点（地理原点）
+    datum: [8.0, 47.0, 0.0]  # 经度, 纬度, 海拔
+
+    # GPS1（前 GPS）
+    gps1/fix:
+      topic: /gps1/fix
+      sensor_type: gps
+      use_pose_with_covariance: false
+      pose_rejection_threshold: 2
+      velocity_rejection_threshold: 2
+      differential: true  # 使用差分模式
+      relative: true      # 使用相对偏移
+      pose_offset:
+        x: 0.45   # 前方 GPS，偏移 +0.45m
+        y: 0.0
+        z: 0.0
+
+    # GPS2（后 GPS）
+    gps2/fix:
+      topic: /gps2/fix
+      sensor_type: gps
+      use_pose_with_covariance: false
+      pose_rejection_threshold: 2
+      velocity_rejection_threshold: 2
+      differential: true
+      relative: true
+      pose_offset:
+        x: -0.45  # 后方 GPS，偏移 -0.45m
+        y: 0.0
+        z: 0.0
+
+    # IMU
+    imu/data:
+      topic: /imu/data
+      sensor_type: imu
+      enable_pose: true   # 如果 IMU 提供姿态
+      enable_velocity: true
+      enable_acceleration: true
+      differential: false
+      relative: false
+      remove_gravitational_acceleration: true

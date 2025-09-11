@@ -1,0 +1,23 @@
+
+geometry_msgs
+{
+    1.PointStamped
+    {
+        /target_point    //发布前瞻点话题
+        
+    }
+    2.PoseStamped
+    {
+        /current_pose    //发布机器人当前位姿话题
+        global_plan_     //第一次输入的全局路径
+    }
+}
+
+
+costmap_2d
+{
+    1.Costmap2DROS
+    {
+       costmap_ros_  //初始的代价地图
+    }
+}

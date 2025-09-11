@@ -1,0 +1,14 @@
+robot_radius: 0.25         #底盘半径
+inflation_radius: 0.4      #障碍物膨胀半径
+obstacle_range: 3.0        #激光雷达判定障碍物范围（一般设置为激光雷达有效范围）
+raytrace_range: 6.0        #删除动态障碍物残留影子
+observation_sources: base_lidar    #障碍物观测来源
+base_lidar: {
+    data_type: LaserScan,  
+    topic: /scan,    
+    marking: true, 
+    inf_is_valid: true,
+    clearing: true 
+    }
+
+

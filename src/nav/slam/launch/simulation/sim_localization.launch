@@ -1,0 +1,23 @@
+<launch>
+    <arg name="localization_rviz" default="false"/>
+    <arg name="hdl_rviz" default="true"/>
+    <!-- <include file="$(find livox_ros_driver2)/launch_ROS1/msg_MID360.launch"/> -->
+    <!-- <include file="$(find xj_robot_simu)/launch/expr.launch"/> -->
+
+    <!-- <node pkg="xj_robot_slam" type="imu_trans.py" name="imu_trans" /> -->
+	<!-- <include file="$(find livox_repub)/launch/livox_repub.launch"/> -->
+    
+    <!-- hdl_localization -->
+    <include file="$(find xj_robot_slam)/launch/simulation/sim_3dmap_hdl_localization.launch">
+        <arg name="rviz_loca" value="$(arg localization_rviz)" />
+        <arg name="rviz_hdl" value="$(arg hdl_rviz)" />
+    </include>
+
+    <!-- <node pkg="xj_robot_slam" type="calc_odom" name="calc_odom" /> -->
+
+    <!-- usb-cam  apriltag-con -->
+    <!-- <include file="$(find xj_robot_slam)/launch/usb_cam-test.launch"/> -->
+    <!-- <include file="$(find apriltag_ros)/launch/continuous_detection.launch"/> -->
+
+
+</launch>

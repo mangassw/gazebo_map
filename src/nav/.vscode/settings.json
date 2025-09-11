@@ -1,0 +1,16 @@
+{
+  "python.autoComplete.extraPaths": [
+    "/home/wu/24-8-22/xbai_car/devel/lib/python3/dist-packages",
+    "/home/wu/Thirdparty/ws_livox/devel/lib/python3/dist-packages",
+    "/home/wu/learn_24-5-21/jz-robot/devel/lib/python3/dist-packages",
+    "/home/wu/Thirdparty/cartographer_ws/install_isolated/lib/python3/dist-packages",
+    "/opt/ros/noetic/lib/python3/dist-packages"
+  ],
+  "python.analysis.extraPaths": [
+    "/home/wu/24-8-22/xbai_car/devel/lib/python3/dist-packages",
+    "/home/wu/Thirdparty/ws_livox/devel/lib/python3/dist-packages",
+    "/home/wu/learn_24-5-21/jz-robot/devel/lib/python3/dist-packages",
+    "/home/wu/Thirdparty/cartographer_ws/install_isolated/lib/python3/dist-packages",
+    "/opt/ros/noetic/lib/python3/dist-packages"
+  ]
+}

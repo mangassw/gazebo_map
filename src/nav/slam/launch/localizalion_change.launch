@@ -1,0 +1,25 @@
+<launch>
+    <!-- RTK 误差 -->
+    <!-- RTK TF发布节点 -->
+    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="-0.43 -0.05 0 0 0 0 /map /gps_link 1000" />
+    <node pkg="tf" type="static_transform_publisher" name="base_to_recent_livox" args="0.45 0 0 0 0 0 /base_link /new_laser_frame 1000" />
+    <node pkg="tf" type="static_transform_publisher" name="lidar_to_car" args="-0.45 0 0 0 0 0 /laser_livox /lidar2car 1000" />
+    <!-- <node pkg="tf" type="static_transform_publisher" name="test" args="-0.45 0 0 0 0 0 /gps_link /gps_base_link 0" /> -->
+
+    <node name="rtk2enu" pkg="xj_robot_slam" type="rtk2enu" output="screen">
+        <param name="map_origin_lat" value="46.999999999979096"/>
+        <param name="map_origin_lon" value="8.00000000000818"/>
+        <remap from="/gps/fix" to="/gps/fix_republished"/>
+    </node>
+    <!-- 激光雷达RTK验证节点 -->
+    <node name="base_link_change" pkg="xj_robot_slam" type="base_link_change" output="screen">
+        <remap from="/gps/fix" to="/gps/fix_republished"/>
+        <param name="rtk_covariance_threshold" value="0.1"/>
+        <param name="position_diff_threshold" value="1.0"/>
+        <param name="matching_error_threshold" value="0.05"/>
+        <param name="enable_area_check" value="false"/>
+        <param name="history_window" value="10"/>
+        <param name="lidar_del_x" value="-0.45"/>
+        <param name="lidar_del_y" value="0"/>
+    </node>
+</launch>

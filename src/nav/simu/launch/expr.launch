@@ -1,0 +1,22 @@
+<launch>
+  <arg name="x_pos" default="0.0"/>
+  <arg name="y_pos" default="0.0"/>
+  <arg name="z_pos" default="0.0"/>
+  <arg name="expr_rviz" default="false"/>
+
+  <!--sunny-->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find xj_robot_simu)/urdf/mid360/model.urdf.xacro'"/>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+   <param name="publish_frequency" type="double" value="50.0" />
+  </node>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+   <!-- <param name="use_gui" value="false" /> -->
+  </node>
+
+  <!-- <node pkg="jz_expr" type="jz_bridge_node" name="jz_bridge" /> -->
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_laser" args="-0.535 0 -0.255 0 0 0 /lidar_link /base_link 1000" /> -->
+
+  <!-- <node pkg="rs_to_velodyne" name="rs_to_velodyne" type="rs_to_velodyne"  args="XYZIRT XYZIRT"   output="screen" /> -->
+
+</launch>

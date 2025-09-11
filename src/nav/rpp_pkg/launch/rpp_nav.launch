@@ -1,0 +1,37 @@
+
+<launch>
+    <!--- Run move_base -->
+    <node pkg="move_base" type="move_base" name="move_base">
+        <rosparam file="$(find rpp_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find rpp_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find rpp_pkg)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find rpp_pkg)/config/local_costmap_params.yaml"  command="load" />
+        
+        <param name="base_global_planner" value="global_planner/GlobalPlanner" /> 
+        <param name="base_local_planner" value="rpp_pkg/RPPController" />
+        <rosparam file="$(find rpp_pkg)/config/rpp_local_planner_params.yaml" command="load" ns="RPPController" />
+    </node> 
+
+    <!-- Run map server -->
+    <node pkg="map_server" type="map_server" name="map_server" args="$(find rpp_pkg)/map/map.yaml"/>
+    
+
+    <!--- Run AMCL -->
+    <node pkg="amcl" type="amcl" name="amcl" />
+
+    <!--- Run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rpp_pkg)/rviz/map_tool.rviz"/>
+
+    <!-- <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot"/> -->
+
+    <!-- plotjuggler数据可视化 -->
+    <!-- <node name="plotjuggler" pkg="plotjuggler" type="plotjuggler" output="screen">
+        <param name="layout_file" value="$(find rpp_pkg)/config/plotjuggler.xml" /> 
+    </node> -->
+    
+    <!--- 航点设置 -->
+    <!-- <node pkg="waterplus_map_tools" type="wp_manager" name="wp_manager" output="screen"/>
+    <node pkg="waterplus_map_tools" type="wp_navi_server" name="wp_navi_server" output="screen"/>
+    <node pkg="nav_pkg" type="wp_node" name="wp_node"/> -->
+
+</launch>

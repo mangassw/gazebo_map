@@ -1,0 +1,35 @@
+<launch>
+    <!-- mbf路径规划器：GlobalPlanner and TebLocalPlannerROS-->
+    <!-- 定位：HDL -->
+    <!-- 模型：差速bw，驱动轮在后，万向轮在前 -->
+
+    <!-- Arguments -->
+    <arg name="cmd_vel_topic" default="/cmd_vel" />
+    <arg name="odom_topic" default="odom" />
+    <arg name="localization_rviz" default="false"/>
+    <arg name="hdl_rviz" default="true"/>
+    <arg name="pnc_rviz" default="false"/>
+    <!-- move_base_flex -->
+    <node pkg="mbf_costmap_nav" type="mbf_costmap_nav" respawn="false" name="move_base_flex" output="screen" >
+        <!-- <rosparam file="$(find xj_robot_pnc)/param/track/costmap_params.yaml" command="load" /> -->
+        <!-- <rosparam file="$(find xj_robot_pnc)/param/costmap/costmap_common_params_csdn.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find xj_robot_pnc)/param/costmap/costmap_common_params_csdn.yaml" command="load" ns="local_costmap" /> -->
+        <rosparam file="$(find xj_robot_pnc)/param/costmap/local_costmap.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/param/costmap/global_costmap.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/param/track/move_base_flex_params.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/param/track/recovery_behavior_params.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/param/track/teb_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/param/track/costmap_converter_params.yaml" command="load" />
+        <param name="base_local_planner" value="rpp_pkg/RPPController" />
+        <rosparam file="$(find rpp_pkg)/config/rpp_local_planner_params.yaml" command="load" ns="RPPController" />
+        <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+        <remap from="odom" to="$(arg odom_topic)"/>
+    </node>
+
+    <!-- action goal bridge -->
+    <node pkg="xj_robot_pnc" type="xj_robot_mbf_bridge" respawn="false" name="xj_robot_mbf_bridge" />
+    
+
+    <include file="$(find xj_robot_slam)/launch/simulation/sim_PointsCloud2toLaserscan.launch"/>
+
+</launch>

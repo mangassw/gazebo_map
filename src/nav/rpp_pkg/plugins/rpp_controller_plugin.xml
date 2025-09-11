@@ -1,0 +1,5 @@
+<library path="lib/librpp_pkg">  <!-- 对应编译生成的库文件 -->
+  <class name="rpp_pkg/RPPController" type="rpp_pkg::controller::RPPController" base_class_type="nav_core::BaseLocalPlanner">
+    <description>Regulated Pure Pursuit Local Planner</description>
+  </class>
+</library>

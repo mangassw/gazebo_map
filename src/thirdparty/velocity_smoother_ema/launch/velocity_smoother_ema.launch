@@ -1,0 +1,11 @@
+<launch>
+    <rosparam file="$(find velocity_smoother_ema)/param/smoother.yaml" command="load"/>
+    <node name="velocity_smoother_ema" type="velocity_smoother_ema_node" pkg="velocity_smoother_ema" output="screen">
+        <param name="/alpha_v" value="0.8"/>
+        <param name="/alpha_w" value="0.8"/>
+        <param name="/cmd_rate" value="15"/>
+        <!-- <param name="alpha_v" value="0.1"/> -->
+        <!-- <param name="raw_cmd_topic" value="raw_cmd_vel"/> -->
+        <param name="cmd_topic" value="/smooth_cmd_vel"/>
+    </node>
+</launch>

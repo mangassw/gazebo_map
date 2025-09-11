@@ -1,0 +1,42 @@
+RPPController:
+  # 界坐标系（world）与栅格地图（grid map）之间的坐标偏移量
+  convert_offset: 0.0
+
+  
+  goal_dist_tolerance: 0.2     # 目标到达距离容忍度 0.2
+  rotate_tolerance: 0.5        # 目标到达角度容忍度 0.5
+
+  max_v: 0.8     #最大线速度 0.4
+  min_v: 0.0     #最大角速度 0
+  max_v_inc: 0.5 #最大加速度 0.2
+
+  max_w: 1     #最大角速度 1.57
+  min_w: 0.0      #最小角速度 0
+  max_w_inc: 0.5 #最大角加速度 1.57
+
+  base_frame: base_link
+  map_frame: map
+
+  # lookahead-前瞻参数
+  lookahead_time: 5     #前瞻时间1.5
+  min_lookahead_dist: 0.5 #最小前瞻距离0.3
+  max_lookahead_dist: 1.5 #最大前瞻距离0.9
+
+  # constriants
+  regulated_min_radius: 0.1   # 0.9-最小转弯半径
+  inflation_cost_factor: 10.0  # 3.0-膨胀代价因子（值越大，机器人离障碍物越远时就开始减速）
+  scaling_dist: 1.5     # 0.6-距离缩放阈值（当机器人与障碍物的距离小于此值时，开始显著降低速度）
+  scaling_gain: 2.0     # 1.0-速度缩放系数（值越大，障碍物对速度的限制越强）
+  approach_dist: 0.8    # 0.8-接近终点准备减速停车距离
+  approach_min_v: 0.1   # 0.1-接近目标时的最小速度
+
+  # 障碍物约束参数
+  safety_dist: 0.3           # 安全距离阈值（米）
+  scaling_dist: 1.0          # 开始减速的距离阈值（米）
+  max_wait_time: 10.0        # 最大等待时间（秒）
+  
+  # 动态障碍物检测参数
+  min_frames_for_detection: 3 # 用于检测的最小历史帧数量
+  max_history_frames: 5       # 最大保存的历史帧数量
+  cost_change_threshold: 50   # 代价变化阈值
+  dynamic_obstacle_threshold: 0.05 # 动态障碍物判断阈值（变化比例）
