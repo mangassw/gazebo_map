@@ -1,0 +1,27 @@
+[submodule "src/thirdparty/robot_localization"]
+	path = src/thirdparty/robot_localization
+	url = https://github.com/cra-ros-pkg/robot_localization.git
+[submodule "src/thirdparty/pointcloud_to_laserscan"]
+	path = src/thirdparty/pointcloud_to_laserscan
+	url = https://github.com/mangassw/pointcloud_to_laserscan.git
+[submodule "src/thirdparty/FAST_LIO_SAM"]
+	path = src/thirdparty/FAST_LIO_SAM
+	url = https://github.com/mangassw/FAST_LIO_SAM.git
+[submodule "src/smartcar_description"]
+	path = src/smartcar_description
+	url = https://github.com/mangassw/smartcar_description.git
+[submodule "src/thirdparty/navigation"]
+	path = src/thirdparty/navigation
+	url = https://github.com/mangassw/navigation.git
+[submodule "src/thirdparty/livox_repub"]
+	path = src/thirdparty/livox_repub
+	url = https://github.com/mangassw/livox_repub.git
+[submodule "src/thirdparty/pcd2pgm_package"]
+	path = src/thirdparty/pcd2pgm_package
+	url = https://github.com/mangassw/pcd2pgm_package.git
+[submodule "src/thirdparty/FAST_LIO"]
+	path = src/thirdparty/FAST_LIO
+	url = https://github.com/mangassw/FAST_LIO.git
+[submodule "src/thirdparty/livox_ros_driver2"]
+	path = src/thirdparty/livox_ros_driver2
+	url = https://github.com/mangassw/livox_ros_driver2.git
