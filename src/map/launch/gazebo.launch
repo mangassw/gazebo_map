@@ -1,0 +1,5 @@
+<launch>    
+      <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" value="/home/mdical/gazebo_map/src/map/world/new_world/new_world.world"/>
+      </include>
+</launch>

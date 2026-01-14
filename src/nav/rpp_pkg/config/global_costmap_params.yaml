@@ -1,0 +1,23 @@
+global_costmap:
+  global_frame: map                    #地图坐标系名称
+  robot_base_frame: base_footprint     #底盘坐标系名称
+  static_map: true                     #是否将map_server发来的数据作为初始地图
+  update_frequency: 1.0                #把传感器观测到的新障碍物添加到地图
+  publish_frequency: 1.0               #发布频率
+  transform_tolerance: 1.0             #tf发送更新容忍度（秒）
+
+recovery_behaviors:
+  - name: 'conservative_reset'
+    type: 'clear_costmap_recovery/ClearCostmapRecovery'
+  - name: 'rotate_recovery'
+    type: 'rotate_recovery/RotateRecovery'
+  - name: 'aggressive_reset'
+    type: 'clear_costmap_recovery/ClearCostmapRecovery'
+
+conservative_reset:
+  reset_distance: 2.0
+  layer_names: ["obstacle_layer"]
+
+aggressive_reset:
+  reset_distance: 0.0
+  layer_names: ["obstacle_layer"]

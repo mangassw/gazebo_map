@@ -1,0 +1,44 @@
+<launch>
+    <!-- mbf路径规划器：GlobalPlanner and TebLocalPlannerROS-->
+    <!-- 定位：HDL -->
+    <!-- 模型：差速bw，驱动轮在后，万向轮在前 -->
+
+    <!-- Arguments -->
+    <arg name="cmd_vel_topic" default="/cmd_vel" />
+    <arg name="odom_topic" default="odom" />
+    <arg name="localization_rviz" default="false"/>
+    <arg name="hdl_rviz" default="true"/>
+    <arg name="pnc_rviz" default="false"/>
+    <arg name="map2d" default="$(find xj_robot_slam)/map/scans.yaml"/>
+    <arg name="map3d" default="$(find fast_lio)/PCD/scans.pcd"/>
+
+
+    <node pkg="tf" type="static_transform_publisher" name="base_to_laser" args="-0.17127 0 -0.14157 0 0 0 /body /base_link 1000" />
+    <node pkg="tf" type="static_transform_publisher" name="livox_to_laser" args="0 0 0 0 0 0 /body /livox 1000" />
+
+    <node pkg="map_server" type="map_server" name="map_server" args="$(arg map2d)"/>
+
+
+    <!-- move_base_flex -->
+    <node pkg="mbf_costmap_nav" type="mbf_costmap_nav" respawn="false" name="move_base_flex" output="screen" >
+        <!-- <rosparam file="$(find xj_robot_pnc)/param/track/costmap_params.yaml" command="load" /> -->
+        <!-- <rosparam file="$(find xj_robot_pnc)/param/costmap/costmap_common_params_csdn.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find xj_robot_pnc)/param/costmap/costmap_common_params_csdn.yaml" command="load" ns="local_costmap" /> -->
+        <rosparam file="$(find xj_robot_pnc)/fast_lio_param/costmap/local_costmap.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/fast_lio_param/costmap/global_costmap.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/param/track/move_base_flex_params.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/param/track/recovery_behavior_params.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/param/track/teb_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find xj_robot_pnc)/param/track/costmap_converter_params.yaml" command="load" />
+        <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+        <remap from="odom" to="$(arg odom_topic)"/>
+    </node>
+
+    <!-- action goal bridge -->
+    <node pkg="xj_robot_pnc" type="xj_robot_mbf_bridge" respawn="false" name="xj_robot_mbf_bridge" />
+    
+
+    <include file="$(find xj_robot_slam)/launch/simulation/sim_PointsCloud2toLaserscan.launch"/>
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find xj_robot_slam)/rviz/hdl_localization.rviz"/>
+
+</launch>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mid360">
+    <link name="laser_livox">
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>  
+          <geometry>
+                <mesh filename="package://livox_laser_simulation/meshes/livox_mid-360-90x.dae"/>
+          </geometry>
+        </collision>        
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+                <mesh filename="package://livox_laser_simulation/meshes/livox_mid-360-90x.dae"/>
+          </geometry>
+        </visual>
+    </link>
+    <link name="base_test_link"/>
+    <joint name="base_link_joint" type="fixed" >
+        <!-- <origin xyz="0.17127 0 0.14157" rpy="0 0 0" /> -->
+        <origin xyz="0.45 0 0.5" rpy="0 0 0" />
+        <parent link="base_footprint" />
+        <child link="base_test_link"/>
+    </joint>
+    <joint name="laser_livox_joint" type="fixed" >
+        <!-- <origin xyz="0.17127 0 0.14157" rpy="0 0 0" /> -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_test_link" />
+        <child link="laser_livox"/>
+    </joint>
+<xacro:property name="M_PI" value="3.14159"/> 
+  <gazebo reference="laser_livox">
+      <sensor type="ray" name="laser_livox">
+        <!-- <pose>0 0 0.05 0 0 1.57079632679</pose> -->
+        <pose>0 0 0.05 0 0 0</pose>
+        <visualize>true</visualize>
+        <always_on>True</always_on>
+        <update_rate>10</update_rate>
+        <!-- This ray plgin is only for visualization. -->
+        <plugin name="gazebo_ros_laser_controller" filename="liblivox_laser_simulation.so">
+			  <ray>
+			  <scan>
+				  <horizontal>
+				    <samples>100</samples>
+				    <resolution>1</resolution>
+				    <min_angle>-3.1415926535897931</min_angle>
+            <max_angle>3.1415926535897931</max_angle>
+				  </horizontal>
+				  <vertical>
+				    <samples>50</samples>
+				    <resolution>1</resolution>
+				    <min_angle>-3.1415926535897931</min_angle>
+            <max_angle>3.1415926535897931</max_angle>
+				  </vertical>
+			  </scan>
+			  <range>
+				  <min>0.1</min>
+				  <max>40</max>
+				  <resolution>1</resolution>
+			  </range>
+			  <noise>
+				  <type>gaussian</type>
+				  <mean>0.0</mean>
+				  <stddev>0.0</stddev>
+			  </noise>
+			  </ray>
+          <visualize>False</visualize>
+		      <samples>20000</samples>
+		      <downsample>1</downsample>
+		      <csv_file_name>mid360-real-centr.csv</csv_file_name>
+          <publish_pointcloud_type>2</publish_pointcloud_type>
+		      <ros_topic>/livox/lidar</ros_topic>
+          <frameName>laser_livox</frameName>
+        </plugin>
+      </sensor>
+  </gazebo>
+</robot>

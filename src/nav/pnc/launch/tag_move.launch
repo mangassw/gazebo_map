@@ -1,0 +1,37 @@
+<launch>
+    <node pkg="tf" type="static_transform_publisher" name="cam_to_base" args="0 0 -0.2 0 0 0 /usb_cam /base 1000" />
+
+    <node pkg="xj_robot_pnc" type="tag_move.py" name="tag_move" output="screen">
+        <!-- 第一阶段参数（快速接近） -->
+        <param name="approach_target_distance" value="0.5" />
+        <param name="approach_pos_threshold" value="0.05" />  <!-- 2cm -->
+        <param name="approach_angle_threshold" value="5.0" /> <!-- 5度 -->
+        <param name="approach_max_linear" value="0.1" />
+        <param name="approach_max_angular" value="1" />
+        <param name="approach_x_kp" value="1.2" />
+        <param name="approach_x_kd" value="0.3" />
+        <param name="approach_x_max" value="0.8" />
+        <param name="approach_z_kp" value="0.2" />
+        <param name="approach_z_kd" value="0.05" />
+        <param name="approach_z_max" value="0.8" />
+        <param name="approach_theta_kp" value="0.8" />
+        <param name="approach_theta_kd" value="0.2" />
+        <param name="approach_theta_max" value="1.0" />
+
+        <!-- 第二阶段参数（精确对接） -->
+        <param name="final_target_distance" value="0.28" />
+        <param name="final_pos_threshold" value="0.03" />    <!-- 5mm -->
+        <param name="final_angle_threshold" value="1.5" />    <!-- 1.5度 -->
+        <param name="final_max_linear" value="0.05" />
+        <param name="final_max_angular" value="0.2" />
+        <param name="final_x_kp" value="0.8" />
+        <param name="final_x_kd" value="0.3" />
+        <param name="final_x_max" value="0.4" />
+        <param name="final_z_kp" value="0.3" />
+        <param name="final_z_kd" value="0.1" />
+        <param name="final_z_max" value="0.3" />
+        <param name="final_theta_kp" value="1.2" />
+        <param name="final_theta_kd" value="0.5" />
+        <param name="final_theta_max" value="0.6" />
+    </node>
+</launch>

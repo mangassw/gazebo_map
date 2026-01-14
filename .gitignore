@@ -1,0 +1,23 @@
+# ROS编译目录 必忽略
+build/
+devel/
+install/
+build_isolated/
+devel_isolated/
+install_isolated/
+
+# C++编译产物
+*.o
+*.so
+*.a
+*.lib
+*.dll
+*.exe
+
+# 临时文件
+*.log
+*.tmp
+*.bak
+.DS_Store
+*.pcd
+*.pgm

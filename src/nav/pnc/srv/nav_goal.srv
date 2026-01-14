@@ -1,0 +1,10 @@
+float32 tar_x
+float32 tar_y
+float32 tar_z
+float32 tar_yaw
+---
+bool reach_ok
+
+##导航节点提供服务
+##发送位姿信息，reach_ok代表是否成功到达位姿。
+##导航服务结束后才返回

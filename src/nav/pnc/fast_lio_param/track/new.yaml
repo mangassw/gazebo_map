@@ -1,0 +1,5 @@
+TebLocalPlannerROS:
+
+ footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
+   type: "polygon"
+   vertices: [ [0.3, -0.3], [0.3, 0.3], [-0.3, 0.3], [-0.3, -0.3]]

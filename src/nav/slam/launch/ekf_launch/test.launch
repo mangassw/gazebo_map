@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="robot_localization" type="ekf_node" name="ekf_gps_imu_offset" output="screen">
+    <rosparam command="load" file="$(find xj_robot_slam)/ekf_params/ekf_gps_imu.yaml" />
+  </node>
+</launch>

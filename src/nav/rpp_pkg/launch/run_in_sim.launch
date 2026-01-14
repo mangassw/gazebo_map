@@ -1,0 +1,7 @@
+<launch>
+  <!--打开机器人及其仿真环境-->
+  <include file="$(find wpr_simulation)/launch/wpb_stage_robocup.launch"/>
+  <!--打开局部规划器-->
+  <include file="$(find rpp_pkg)/launch/rpp_nav.launch"/>
+
+</launch>
